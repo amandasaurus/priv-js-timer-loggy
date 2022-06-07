@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel=stylesheet href="style.css" />
+</head>
+<body>
+
+<div x-data="{ timers: [
+			 { timer_id: 12, start: 1654613076, end: 1654699487 },
+			 { timer_id: 13, start: 1654613076, end: 1654699487 }
+] }">
+	<template x-for="timer in timers" :key="timer.timer_id">
+		<div>
+			Start: <span x-text="timer.start"></span>, end <span x-text="timer.end"></span>.
+			<form name=delete style="display: inline" @submit.prevent="var timer_id =  $event.target.timer_id.value); delet">
+				<input type=hidden name=timer_id :value="timer.timer_id">
+				<button submit>Delete</button>
+			</form>
+		<div>
+	</template>
+</div>
+
+<div id=add_forms>
+	<form name=add_end_time @submit.prevent="console.log('want to add');">
+		Endtime: <input type=time name=endtime value="18:00">
+		<button submit>Add</button>
+	</form>
+</div>
+
+</div>
+
+</body>
+</html>
