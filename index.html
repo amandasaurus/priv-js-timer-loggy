@@ -9,7 +9,7 @@
   <script>
 
 		  function remove_timer(timers, timer_id) {
-					timers.splice(timers.find(item => item.timer_id = timer_id), 1);
+					timers.splice(timers.findIndex(item => item.timer_id == timer_id), 1);
 				}
 
 		  function c14n_timers(timers) {
@@ -42,8 +42,9 @@
 					var timer_id = timers.reduce((max, timer) => timer.timer_id > max ? timer.timer_id : max, -1);
 					timer_id++;
 					var now = Date.now();
+					var hours = parseInt(form.hours.value, 10);
 					var minutes = parseInt(form.minutes.value, 10);
-					var newend = now + minutes*60*1000;
+					var newend = now + (hours*60*60 + minutes*60)*1000;
 					timers.push({timer_id: timer_id, start: now, end: newend});
 					c14n_timers(timers);
 				}
@@ -61,12 +62,15 @@
 				  if (hrs > 0 || mins > 0) {
 							output += `${mins}m `;
 						}
-				output += `${sec}s `;
+				if (hrs == 0 && mins == 0) {
+					output += `${sec}s `;
+				}
 				  return output;
 
 			  }
 
 	  function fraction(total, passed) {
+				passed = Math.max(passed, 0);
 				if (passed > total) {
 							return 0;
 						}
@@ -74,16 +78,32 @@
 			}
 
   </script>
+	<style>
+		.individual_timer {
+			padding: 1rem 0.1rem;
+		}
+		.individual_timer .firstrow {
+			text-align: center;
+			font-size: 2em;
+		}
+		.remaining {
+			display: flex;
+		}
+	</style>
 </head>
 <body>
 
 	<div x-data="{ timers: $persist([]), curr_time: Date.now(), init() { c14n_timers(this.timers) ; setInterval(() => { c14n_timers(this.timers) ; this.curr_time = Date.now(); }, 1000); } }">
 	<template x-for="timer in timers" :key="timer.timer_id">
-		<div x-data="{ timer_id: timer.timer_id, duration_ms: (timer.end - timer.start), start_ms: timer.start, end_ms: timer.end, start: new Date(timer.start), end: new Date(timer.end), duration: timer.end-timer.start }">
-		Start: <span x-text="`${start.getHours().toString().padStart(2, '0')}:${start.getMinutes().toString().padStart(2, '0')}`"></span>, end <span x-text="`${end.getHours().toString().padStart(2, '0')}:${end.getMinutes().toString().padStart(2, '0')}`"></span>.
-		Fraction: <span x-text="fraction(duration_ms, curr_time-timer.start).toFixed(3)"></span> frac.
-			Remaining: <span x-text="fmt_duration(end - curr_time)"></span>.
-			<button @click="remove_timer(timers, timer_id)">Delete</button>
+		<div class=individual_timer x-data="{ timer_id: timer.timer_id, duration_ms: (timer.end - timer.start), start_ms: timer.start, end_ms: timer.end, start: new Date(timer.start), end: new Date(timer.end), duration: timer.end-timer.start }">
+			<div class=firstrow>
+				<span class=fraction x-text="fraction(duration_ms, curr_time-timer.start).toFixed(3)"></span>
+				<span class=duration x-text="fmt_duration(end - curr_time)"></span>
+			</div>
+			<div class=remaining>
+				Start: <span x-text="`${start.getHours().toString().padStart(2, '0')}:${start.getMinutes().toString().padStart(2, '0')}`"></span> End: <span x-text="`${end.getHours().toString().padStart(2, '0')}:${end.getMinutes().toString().padStart(2, '0')}`"></span>.
+			</div>
+			<button @click="remove_timer(timers, timer.timer_id)">Delete (id <span x-text="timer_id"></span>)</button>
 		<div>
 	</template>
 
@@ -93,9 +113,11 @@
 			<button submit>Add</button>
 		</form>
 		<form name=add_countdown @submit.prevent="add_countdown(timers, $event.target)">
-			Endtime: <input type=number name=minutes value=60 >
+			<input type=number name=hours value=1 size=3>h <input type=number name=minutes value=0 size=3 >m
 			<button submit>Add</button>
 		</form>
+		<button @click="timers = []">Remove all</button>
+		<details closed><summary>Timer data</summary><code x-text="JSON.stringify(timers)"></code></details>
 	</div>
 
 </div>
