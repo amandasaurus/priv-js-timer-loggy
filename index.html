@@ -6,78 +6,7 @@
   <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <link rel=stylesheet href="style.css" />
-  <script>
-
-		  function remove_timer(timers, timer_id) {
-					timers.splice(timers.findIndex(item => item.timer_id == timer_id), 1);
-				}
-
-		  function c14n_timers(timers) {
-					// sort by end
-					timers.sort((a,b) => a.end > b.end)
-
-					// remove old
-					var now = Date.now();
-					var i = -1;
-					while (true) {
-							  i = timers.findIndex(timer => timer.end <= now);
-							  if ( i == -1 ) { break; }
-							  timers.splice(i, 1);
-							  continue;
-						  }
-				}
-
-		  function add_endtime(timers, form) {
-					var timer_id = timers.reduce((max, timer) => timer.timer_id > max ? timer.timer_id : max, -1);
-					timer_id++;
-					var now = Date.now()
-					var newend = new Date();
-					newend.setHours(parseInt(form.endtime.value.substr(0, 2), 10), parseInt(form.endtime.value.substr(3, 5), 10));
-					newend = newend.getTime();
-					timers.push({timer_id: timer_id, start: now, end: newend});
-					c14n_timers(timers);
-				}
-
-		  function add_countdown(timers, form) {
-					var timer_id = timers.reduce((max, timer) => timer.timer_id > max ? timer.timer_id : max, -1);
-					timer_id++;
-					var now = Date.now();
-					var hours = parseInt(form.hours.value, 10);
-					var minutes = parseInt(form.minutes.value, 10);
-					var newend = now + (hours*60*60 + minutes*60)*1000;
-					timers.push({timer_id: timer_id, start: now, end: newend});
-					c14n_timers(timers);
-				}
-
-		function fmt_duration(msec) {
-				  sec = Math.floor(msec / 1000);
-				  mins = Math.floor(sec / 60);
-				  sec %= 60;
-				  hrs = Math.floor(mins / 60);
-				  mins %= 60;
-				  output = "";
-				  if (hrs > 0) {
-							output += `${hrs}h `;
-						}
-				  if (hrs > 0 || mins > 0) {
-							output += `${mins}m `;
-						}
-				if (hrs == 0 && mins == 0) {
-					output += `${sec}s `;
-				}
-				  return output;
-
-			  }
-
-	  function fraction(total, passed) {
-				passed = Math.max(passed, 0);
-				if (passed > total) {
-							return 0;
-						}
-				return -Math.log2(1 - (passed/total));
-			}
-
-  </script>
+  <script src="main.js"></script>
 	<style>
 		.individual_timer {
 			padding: 1rem 0.1rem;
@@ -93,7 +22,7 @@
 </head>
 <body>
 
-	<div x-data="{ timers: $persist([]), curr_time: Date.now(), init() { c14n_timers(this.timers) ; setInterval(() => { c14n_timers(this.timers) ; this.curr_time = Date.now(); }, 1000); } }">
+	<div x-data="{ timers: $persist([]), popular: $persist({'endtime': [], 'countdown':[]}), curr_time: Date.now(), init() { c14n_timers(this.timers) ; setInterval(() => { c14n_timers(this.timers) ; this.curr_time = Date.now(); }, 1000); } }">
 	<template x-for="timer in timers" :key="timer.timer_id">
 		<div class=individual_timer x-data="{ timer_id: timer.timer_id, duration_ms: (timer.end - timer.start), start_ms: timer.start, end_ms: timer.end, start: new Date(timer.start), end: new Date(timer.end), duration: timer.end-timer.start }">
 			<div class=firstrow>
@@ -108,16 +37,19 @@
 	</template>
 
 	<div id=add_forms>
-		<form name=add_end_time @submit.prevent="add_endtime(timers, $event.target)">
+		<form name=add_endtime @submit.prevent="add_endtime(timers, $event.target)">
 			Endtime: <input type=time name=endtime value="18:00">
 			<button submit>Add</button>
 		</form>
-		<form name=add_countdown @submit.prevent="add_countdown(timers, $event.target)">
+		<form name=add_countdown @submit.prevent="add_countdown(timers, $event.target, popular)">
 			<input type=number name=hours value=1 size=3>h <input type=number name=minutes value=0 size=3 >m
 			<button submit>Add</button>
 		</form>
-		<button @click="timers = []">Remove all</button>
-		<details closed><summary>Timer data</summary><code x-text="JSON.stringify(timers)"></code></details>
+		<button @click="timers = []; popular = {}">Reset</button>
+		<details open><summary>State:</summary>
+			<code x-text="JSON.stringify(timers)"></code>
+			<code x-text="JSON.stringify(popular)"></code>
+		</details>
 	</div>
 
 </div>
