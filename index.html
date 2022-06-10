@@ -54,7 +54,7 @@
 				  sec %= 60;
 				  hrs = Math.floor(mins / 60);
 				  mins %= 60;
-				  output = ""
+				  output = "";
 				  if (hrs > 0) {
 							output += `${hrs}h `;
 						}
@@ -66,15 +66,23 @@
 
 			  }
 
+	  function fraction(total, passed) {
+				if (passed > total) {
+							return 0;
+						}
+				return -Math.log2(1 - (passed/total));
+			}
+
   </script>
 </head>
 <body>
 
 	<div x-data="{ timers: $persist([]), curr_time: Date.now(), init() { c14n_timers(this.timers) ; setInterval(() => { c14n_timers(this.timers) ; this.curr_time = Date.now(); }, 1000); } }">
 	<template x-for="timer in timers" :key="timer.timer_id">
-		<div x-data="{ timer_id: timer.timer_id, start: new Date(timer.start), end: new Date(timer.end), duration: timer.end-timer.start }">
+		<div x-data="{ timer_id: timer.timer_id, duration_ms: (timer.end - timer.start), start_ms: timer.start, end_ms: timer.end, start: new Date(timer.start), end: new Date(timer.end), duration: timer.end-timer.start }">
 		Start: <span x-text="`${start.getHours().toString().padStart(2, '0')}:${start.getMinutes().toString().padStart(2, '0')}`"></span>, end <span x-text="`${end.getHours().toString().padStart(2, '0')}:${end.getMinutes().toString().padStart(2, '0')}`"></span>.
-			Remaining: <span x-text="fmt_duration(end - curr_time)"></span> sec.
+		Fraction: <span x-text="fraction(duration_ms, curr_time-timer.start).toFixed(3)"></span> frac.
+			Remaining: <span x-text="fmt_duration(end - curr_time)"></span>.
 			<button @click="remove_timer(timers, timer_id)">Delete</button>
 		<div>
 	</template>
