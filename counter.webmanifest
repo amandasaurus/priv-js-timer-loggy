@@ -1,7 +1,7 @@
 {
   "background_color": "purple",
   "description": "Countdown timer",
-  "display": "fullscreen",
+  "display": "standalone",
   "icons": [
   ],
   "name": "Counter",
