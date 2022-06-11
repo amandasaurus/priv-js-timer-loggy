@@ -72,7 +72,7 @@ function fmt_duration(msec) {
 	if (hrs > 0 || mins > 0) {
 		output += `${mins}m `;
 	}
-	if (hrs == 0 && mins == 0) {
+	if (hrs == 0 && mins < 5) {
 		output += `${sec}s `;
 	}
 	return output;
