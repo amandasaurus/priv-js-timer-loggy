@@ -1,5 +1,8 @@
 .individual_timer {
 	padding: 1rem 0.1rem;
+	margin: 0.5rem 0rem;
+	border-radius: 1.5rem;
+	border: 1px solid black;
 }
 .individual_timer .firstrow {
 	text-align: center;

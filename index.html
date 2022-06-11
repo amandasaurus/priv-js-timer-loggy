@@ -15,7 +15,7 @@
 
 	<div x-data="{ timers: $persist([]), popular: $persist({'endtime': [], 'countdown':[]}), curr_time: Date.now(), init() { c14n_timers(this.timers) ; setInterval(() => { c14n_timers(this.timers) ; this.curr_time = Date.now(); }, 1000); } }">
 	<template x-for="timer in timers" :key="timer.timer_id">
-		<div class=individual_timer x-data="{ timer_id: timer.timer_id, duration_ms: (timer.end - timer.start), start_ms: timer.start, end_ms: timer.end, start: new Date(timer.start), end: new Date(timer.end), duration: timer.end-timer.start }" style="border-radius: 1.5rem; border: 1px solid black;">
+		<div class=individual_timer x-data="{ timer_id: timer.timer_id, duration_ms: (timer.end - timer.start), start_ms: timer.start, end_ms: timer.end, start: new Date(timer.start), end: new Date(timer.end), duration: timer.end-timer.start }" style="">
 			<div class=firstrow style="display: flex; flex-direction: row; justify-content: space-around; padding-bottom: 1rem;">
 				<span class=fraction x-text="fraction(duration_ms, curr_time-timer.start).toFixed(3)"></span>
 				<span class=duration x-text="fmt_duration(end - curr_time)"></span>
@@ -31,18 +31,18 @@
 
 	<div id=add_forms>
 		<form class=inner_form name=add_endtime @submit.prevent="add_endtime(timers, $event.target)">
-			<div>End</div>
-			<div style="display: flex; justify-content: center">
+			<div>end</div>
+			<div style="display: flex; justify-content: center; font-size: larger;">
 				<input type=time name=endtime value="18:00">
 				<button submit>+</button>
 			</div>
 			<!-- <div>popular</div> -->
 		</form>
 		<form class=inner_form name=add_countdown @submit.prevent="add_countdown(timers, $event.target, popular)">
-			<div>Duration</div>
+			<div>duration</div>
 			<div style="display: flex; justify-content: center">
 				<input type=number name=hours min=0 value=1 size=2>h
-				<input type=number name=minutes value=0 size=3 min=0 >m
+				<input type=number name=minutes value=0 size=3 min=0 step=5 >m
 				<button submit>+</button>
 			</div>
 			<!-- <div>popular</div> -->
