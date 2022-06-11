@@ -8,3 +8,10 @@
 .remaining {
 	display: flex;
 }
+
+#add_forms {
+	padding: 1rem 0.1rem;
+}
+#add_forms .inner_form {
+	padding-bottom: 1rem;
+}
