@@ -3,6 +3,11 @@
   "description": "Countdown timer",
   "display": "standalone",
   "icons": [
+    {
+      "src": "control_knobs.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }
   ],
   "name": "Counter",
   "short_name": "Counter",
