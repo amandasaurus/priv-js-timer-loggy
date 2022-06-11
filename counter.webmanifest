@@ -1,0 +1,11 @@
+{
+  "background_color": "purple",
+  "description": "Countdown timer",
+  "display": "fullscreen",
+  "icons": [
+  ],
+  "name": "Counter",
+  "short_name": "Counter",
+  "start_url": "/index.html"
+}
+
