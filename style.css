@@ -1,0 +1,10 @@
+.individual_timer {
+	padding: 1rem 0.1rem;
+}
+.individual_timer .firstrow {
+	text-align: center;
+	font-size: 2em;
+}
+.remaining {
+	display: flex;
+}

@@ -1,24 +1,13 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
-  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  <link rel=stylesheet href="style.css" />
-  <script src="main.js"></script>
-	<style>
-		.individual_timer {
-			padding: 1rem 0.1rem;
-		}
-		.individual_timer .firstrow {
-			text-align: center;
-			font-size: 2em;
-		}
-		.remaining {
-			display: flex;
-		}
-	</style>
+	<head>
+		<title>Countdown</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<script defer src="./alpinejs-persist-3.10.2-cdn.min.js"></script>
+	<script defer src="./alpinejs-3.10.2-cdn.min.js"></script>
+	<link rel=stylesheet href="style.css" />
+	<script src="main.js"></script>
 </head>
 <body>
 
@@ -32,6 +21,9 @@
 			<div class=remaining>
 				Start: <span x-text="`${start.getHours().toString().padStart(2, '0')}:${start.getMinutes().toString().padStart(2, '0')}`"></span> End: <span x-text="`${end.getHours().toString().padStart(2, '0')}:${end.getMinutes().toString().padStart(2, '0')}`"></span>.
 			</div>
+			<div>
+				Raw time left: <span x-text="end_ms - curr_time"></span> ms <span x-text="Math.floor((end_ms - curr_time)/1000)"></span> sec
+			</div>
 			<button @click="remove_timer(timers, timer.timer_id)">Delete (id <span x-text="timer_id"></span>)</button>
 		<div>
 	</template>
@@ -42,7 +34,7 @@
 			<button submit>Add</button>
 		</form>
 		<form name=add_countdown @submit.prevent="add_countdown(timers, $event.target, popular)">
-			<input type=number name=hours value=1 size=3>h <input type=number name=minutes value=0 size=3 >m
+			<input type=number name=hours min=0 value=1 size=3>h <input type=number name=minutes value=0 size=3 min=0 >m
 			<button submit>Add</button>
 		</form>
 		<button @click="timers = []; popular = {}">Reset</button>
