@@ -41,22 +41,24 @@ function add_countdown(timers, form, popular) {
 	if (popular.countdown == undefined ) {
 		popular.countdown = [];
 	}
-	console.log([hours, minutes]);
 	var countdown = popular.countdown;
-	console.log(countdown.findIndex((item) => { item[0] == [hours, minutes] }));
-	i = countdown.findIndex((item) => { item[0] == [hours, minutes] });
-	countdown.map(item => {item[1] *0.9});
+	for (let i=0; i<countdown.length; i++) {
+		countdown[i][1] *= 0.9
+	}
+	console.log("countdown", JSON.stringify(countdown));
+	i = countdown.findIndex((item) => item[0][0] == hours && item[0][1] == minutes);
+	console.log("i", i);
 	if ( i == -1 ) {
 		countdown.push([[hours, minutes], 1]);
 	} else {
 		countdown[i][1]++;
 	}
-	countdown.sort((a, b) => a[1] > b[1])
+	countdown.sort((a, b) => a[1] < b[1])
 
-	if (countdown.length > 5) {
-		countdown.splice(5, countdown.length-5);
+	// Trim extras
+	if (countdown.length > 10) {
+		countdown.splice(10, countdown.length-5);
 	}
-	console.log(popular.countdown);
 }
 
 function fmt_duration(msec) {
