@@ -16,12 +16,12 @@
 
 	<div x-data="{ timers: $persist([]), popular: $persist({'endtime': [], 'countdown':[]}), curr_time: Date.now(), init() { c14n_timers(this.timers) ; setInterval(() => { c14n_timers(this.timers) ; this.curr_time = Date.now(); }, 1000); } }">
 	<template x-for="timer in timers" :key="timer.timer_id">
-		<div class=individual_timer x-data="{ timer_id: timer.timer_id, duration_ms: (timer.end - timer.start), start_ms: timer.start, end_ms: timer.end, start: new Date(timer.start), end: new Date(timer.end), duration: timer.end-timer.start }" style="">
-			<div class=firstrow style="display: flex; flex-direction: row; justify-content: space-around; padding-bottom: 1rem;">
+		<div class=individual_timer x-data="{ timer_id: timer.timer_id, duration_ms: (timer.end - timer.start), start_ms: timer.start, end_ms: timer.end, start: new Date(timer.start), end: new Date(timer.end), duration: timer.end-timer.start }">
+			<div class="firstrow center-children" style="padding-bottom: 1rem;">
 				<span class=fraction x-text="fraction(duration_ms, curr_time-timer.start).toFixed(3)"></span>
 				<span class=duration x-text="fmt_duration(end - curr_time)"></span>
 			</div>
-			<div class=remaining style="display: flex; justify-content: space-around;">
+			<div class="remaining center-children">
 				<span>start <span x-text="`${start.getHours().toString().padStart(2, '0')}:${start.getMinutes().toString().padStart(2, '0')}`"></span></span>
 				<span>end <span x-text="`${end.getHours().toString().padStart(2, '0')}:${end.getMinutes().toString().padStart(2, '0')}`"></span></span>
 				<span><button @click="remove_timer(timers, timer.timer_id)">🚮</button></span>

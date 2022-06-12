@@ -9,6 +9,12 @@ main {
 	margin-top: 1ch;
 }
 
+.center-children {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
 .individual_timer {
 	padding: 1rem 0.1rem;
 	margin: 0.5rem 0rem;
