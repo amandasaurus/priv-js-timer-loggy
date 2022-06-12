@@ -31,7 +31,7 @@
 
 
 	<div id=add_forms>
-		<form class=inner_form name=add_endtime @submit.prevent="add_endtime(timers, $event.target)">
+		<form class=inner_form name=add_endtime @submit.prevent="add_endtime(timers, $event.target.endtime.value)">
 			<div>end</div>
 			<div class=inputs_row style="display: flex; justify-content: center;">
 				<input type=time name=endtime value="18:00">
