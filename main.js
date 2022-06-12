@@ -88,7 +88,7 @@ function fraction(total, passed) {
 }
 
 // Register service worker to control making site work offline
-
+// This doesn't work??
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker
     .register('sw.js')

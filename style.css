@@ -35,3 +35,6 @@ main {
 #add_forms .inner_form {
 	padding-bottom: 1rem;
 }
+.inputs_row, .inputs_row input {
+	font-size: 1.5rem;
+}
