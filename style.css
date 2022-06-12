@@ -1,3 +1,14 @@
+body {
+	display: flex;
+	justify-content: center;
+	margin: 0;
+}
+main {
+	max-width: 50ch;
+	min-width: 35ch;
+	margin-top: 1ch;
+}
+
 .individual_timer {
 	padding: 1rem 0.1rem;
 	margin: 0.5rem 0rem;

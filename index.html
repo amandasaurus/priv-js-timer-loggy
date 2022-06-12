@@ -12,6 +12,7 @@
 	<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
 </head>
 <body>
+	<main>
 
 	<div x-data="{ timers: $persist([]), popular: $persist({'endtime': [], 'countdown':[]}), curr_time: Date.now(), init() { c14n_timers(this.timers) ; setInterval(() => { c14n_timers(this.timers) ; this.curr_time = Date.now(); }, 1000); } }">
 	<template x-for="timer in timers" :key="timer.timer_id">
@@ -53,6 +54,7 @@
 		<code x-text="JSON.stringify(timers)"></code>
 		<code x-text="JSON.stringify(popular)"></code>
 	</details>
+	</main>
 
 </div>
 
