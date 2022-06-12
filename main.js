@@ -29,12 +29,12 @@ function add_endtime(timers, form) {
 	c14n_timers(timers);
 }
 
-function add_countdown(timers, form, popular) {
+function add_countdown(timers, hours, minutes, popular) {
 	var timer_id = timers.reduce((max, timer) => timer.timer_id > max ? timer.timer_id : max, -1);
 	timer_id++;
 	var now = Date.now();
-	var hours = parseInt(form.hours.value, 10);
-	var minutes = parseInt(form.minutes.value, 10);
+	//var hours = parseInt(form.hours.value, 10);
+	//var minutes = parseInt(form.minutes.value, 10);
 	var newend = now + (hours*60*60 + minutes*60)*1000;
 	timers.push({timer_id: timer_id, start: now, end: newend});
 	c14n_timers(timers);
