@@ -24,9 +24,17 @@ function add_endtime(timers, form) {
 	var now = Date.now()
 	var newend = new Date();
 	newend.setHours(parseInt(form.endtime.value.substr(0, 2), 10), parseInt(form.endtime.value.substr(3, 5), 10));
+	if (newend <= now) {
+		// try again tomorrow 
+		newend = new Date();
+		newend.setDate(newend.getDate() + 1);
+		newend.setHours(parseInt(form.endtime.value.substr(0, 2), 10), parseInt(form.endtime.value.substr(3, 5), 10));
+	}
+
 	newend.setSeconds(0);
 	newend.setMilliseconds(0);
 	newend = newend.getTime();
+
 	timers.push({timer_id: timer_id, start: now, end: newend});
 	c14n_timers(timers);
 }
