@@ -73,10 +73,6 @@ function add_countdown(timers, hours, minutes, popular) {
 	}
 }
 
-function update_timer(timer, form) {
-	timer.title = form.title.value;
-}
-
 function fmt_duration(msec) {
 	sec = Math.floor(msec / 1000);
 	mins = Math.floor(sec / 60);

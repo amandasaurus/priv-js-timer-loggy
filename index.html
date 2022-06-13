@@ -21,7 +21,7 @@
 				<span class=fraction x-text="fraction(duration_ms, curr_time-timer.start).toFixed(3)"></span>
 				<span class=duration x-text="fmt_duration(end - curr_time)"></span>
 			</div>
-			<div style="padding: 0rem 2rem;">
+			<div style="">
 				<span x-text="timer.title"></span>
 			</div>
 			<div class="remaining center-children">
@@ -29,11 +29,9 @@
 				<span>end <span x-text="`${end.getHours().toString().padStart(2, '0')}:${end.getMinutes().toString().padStart(2, '0')}`"></span></span>
 				<span><button @click="remove_timer(timers, timer.timer_id)">🚮</button></span>
 			</div>
-			<div style="padding: 0.1rem 2rem 0rem; display: flex; justify-content: center;">
+			<div style="display: flex; justify-content: center;">
 				<details open><summary>edit</summary>
-				<form @submit.prevent="update_timer(timer, $event.target)">
-					<label>Title <input name=title :value="timer.title" /></label>
-					<button submit>save</button>
+					<label>Title <input name=title x-model="timer.title" /></label>
 				</form>
 				</details>
 			</div>
