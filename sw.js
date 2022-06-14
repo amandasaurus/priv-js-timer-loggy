@@ -1,5 +1,5 @@
 self.addEventListener('install', (e) => {
-	console.log("install");
+console.log("install");
   e.waitUntil(
     caches.open('counter-store').then((cache) => cache.addAll([
     ])),
@@ -12,4 +12,4 @@ self.addEventListener('fetch', (e) => {
     caches.match(e.request).then((response) => response || fetch(e.request)),
   );
 });
-console.log("started")
+console.log("started sw")
