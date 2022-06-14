@@ -61,10 +61,11 @@
 				<button @click.prevent="add_countdown(timers, poptime[0][0], poptime[0][1], popular)" x-text="`${poptime[0][0]}:${poptime[0][1].toString().padStart(2, '0')}`"></button>
 			</template>
 	</div>
-	<details closed><summary>Inner:</summary>
+	<details open><summary>Inner:</summary>
 		<button @click="timers = []; popular = {'countdown': []}">Reset</button>
 		<code x-text="JSON.stringify(timers)"></code>
 		<code x-text="JSON.stringify(popular)"></code>
+		<button @click="navigator.serviceWorker.controller.postMessage({type: 'update_cache'});">Update software</button>
 	</details>
 	</main>
 
