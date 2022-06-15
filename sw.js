@@ -20,9 +20,9 @@ function update_cache() {
 self.addEventListener('install', (e) => {
 	console.group("Install");
 	update_cache();
-	//e.waitUntil(
-	//	update_cache()
-	//);
+	e.waitUntil(
+		update_cache()
+	);
 	console.log("end");
 	console.groupEnd("Install");
 });
