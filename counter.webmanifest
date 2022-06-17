@@ -11,6 +11,6 @@
   ],
   "name": "Counter",
   "short_name": "Counter",
-  "start_url": "/index.html"
+  "start_url": "/"
 }
 
