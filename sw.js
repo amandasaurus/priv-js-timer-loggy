@@ -3,15 +3,15 @@ function update_cache() {
 	console.log("start");
 	// Updating the cache
 	caches.open('counter-store').then((cache) => cache.addAll([
-		"/alpinejs-persist-3.10.2-cdn.min.js",
-		"/alpinejs-3.10.2-cdn.min.js",
-		"/style.css",
-		"/main.js",
-		"/sw.js",
-		"/index.html",
-		"/counter.webmanifest",
-		"/control_knobs_192.png",
-		"/"
+		"./alpinejs-persist-3.10.2-cdn.min.js",
+		"./alpinejs-3.10.2-cdn.min.js",
+		"./style.css",
+		"./main.js",
+		"./sw.js",
+		"./index.html",
+		"./counter.webmanifest",
+		"./control_knobs_192.png",
+		"./"
 	]));
 	console.log("end");
 	console.groupEnd();
