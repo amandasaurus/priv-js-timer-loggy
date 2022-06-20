@@ -57,9 +57,7 @@ function add_countdown(timers, hours, minutes, popular) {
 	for (let i=0; i<countdown.length; i++) {
 		countdown[i][1] *= 0.9
 	}
-	console.log("countdown", JSON.stringify(countdown));
 	i = countdown.findIndex((item) => item[0][0] == hours && item[0][1] == minutes);
-	console.log("i", i);
 	if ( i == -1 ) {
 		countdown.push([[hours, minutes], 1]);
 	} else {
@@ -101,14 +99,18 @@ function fraction(total, passed) {
 	return -Math.log2(1 - (passed/total));
 }
 
-// Register service worker to control making site work offline
-// This doesn't work??
-if ('serviceWorker' in navigator) {
-	console.group("SW register");
-	console.log("start");
+function register_sw() {
+	console.group("SW");
+	console.log("about to register");
 	navigator.serviceWorker.register('sw.js')
 		.then(() => { console.log('Service Worker Registered'); });
 	console.log("registered");
 	console.groupEnd();
+}
+
+// Register service worker to control making site work offline
+// This doesn't work??
+if ('serviceWorker' in navigator) {
+	register_sw()
 }
 

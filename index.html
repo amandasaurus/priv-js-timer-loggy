@@ -65,7 +65,12 @@
 		<button @click="timers = []; popular = {'countdown': []}">Reset</button>
 		<code x-text="JSON.stringify(timers)"></code>
 		<code x-text="JSON.stringify(popular)"></code>
-		<button @click="navigator.serviceWorker.controller.postMessage({type: 'update_cache'});">Update software</button>
+		<div x-data="{ sw_status: 'unknown' }">
+			SW status: <code x-text="sw_status"></code>
+			<button @click="sw_status = (navigator.serviceWorker.controller != undefined) ? 'running' : 'notrunning'">Check SW</button>
+			<button @click="register_sw();">Install SW</button>
+			<button @click="navigator.serviceWorker.controller.postMessage({type: 'update_cache'});">Update software</button>
+		</div>
 	</details>
 	</main>
 
