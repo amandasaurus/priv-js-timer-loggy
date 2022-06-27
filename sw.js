@@ -23,10 +23,3 @@ self.addEventListener('fetch', function(event) {
     );
   );
 });
-
-self.addEventListener('message', (e) => {
-	if (e.data && e.data.type == 'update_cache') {
-		update_cache();
-	}
-});
-console.log("I'm in the sw.js");

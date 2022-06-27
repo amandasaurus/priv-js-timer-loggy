@@ -1,3 +1,8 @@
+function console_log(msg) {
+	console.log(msg);
+	fetch(`/console_log_msg_${Date.now()}_${encodeURIComponent(msg)}`).then(() => {}, () => {});
+}
+
 function remove_timer(timers, timer_id) {
 	timers.splice(timers.findIndex(item => item.timer_id == timer_id), 1);
 }
@@ -123,17 +128,19 @@ function fraction(total, passed) {
 }
 
 function register_sw() {
-	console.group("SW");
-	console.log("about to register");
+	console_log("start of register_sw function");
+	if (!('serviceWorker' in navigator)) {
+		console_log("serviceWorker not supported");
+		return;
+	}
+
 	navigator.serviceWorker.register('sw.js')
-		.then(() => { console.log('Service Worker Registered'); });
-	console.log("registered");
-	console.groupEnd();
+		.then(
+			() => { console_log('Service Worker Registered'); },
+			(...args) => { console_log("service worker failed "+args);     }
+		);
+	console_log("end of register_sw function");
 }
 
 // Register service worker to control making site work offline
-// This doesn't work??
-if ('serviceWorker' in navigator) {
-	register_sw()
-}
-
+register_sw()

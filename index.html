@@ -50,7 +50,7 @@
 		<div x-data="{ endtime: (popular.endtime ?? []) }" x-show="endtime.length > 0">
 			<div>popular</div>
 			<template x-for="poptime in endtime.slice(0, 3)">
-				<button @click="add_endtime(timers, `${poptime[0][0]}:${poptime[0][1]}`, popular)" x-text="`${poptime[0][0]}:${poptime[0][1].toString().padStart(2, '0')}`"></button>
+				<button @click="add_endtime(timers, `${poptime[0][0]}:${poptime[0][1]}`, popular); $event.target.blur();" x-text="`${poptime[0][0]}:${poptime[0][1].toString().padStart(2, '0')}`"></button>
 			</template>
 		</div>
 		<form class=inner_form name=add_countdown @submit.prevent="add_countdown(timers, $event.target.hours.value, $event.target.minutes.value, popular)">
@@ -68,15 +68,14 @@
 			</template>
 		</div>
 	</div>
-	<details closed><summary>Inner:</summary>
+	<details open><summary>Inner:</summary>
 		<code x-text="JSON.stringify(popular)"></code>
-		<pre style="white-space: pre-wrap; max-width: 80ch;" x-text="JSON.stringify(timers, null, ' ')"></pre>
-		<pre style="white-space: pre-wrap; max-width: 80ch;" x-text="JSON.stringify(popular, null, ' ')"></pre>
+		<pre style="white-space: pre-wrap; max-width: 50ch;" x-text="JSON.stringify(timers, null, ' ')"></pre>
+		<pre style="white-space: pre-wrap; max-width: 50ch;" x-text="JSON.stringify(popular, null, ' ')"></pre>
 		<div x-data="{ sw_status: 'unknown' }">
 			<abbr title="Service Worker">SW</abbr> status: <code x-text="sw_status"></code>
-			<button @click="sw_status = (navigator.serviceWorker.controller != undefined) ? 'running' : 'notrunning'">Check SW</button>
+			<button @click="sw_status = (navigator.serviceWorker == undefined) ? 'notinstallable' : ( (navigator.serviceWorker.controller != undefined) ? 'running' : 'notrunning' )">Check SW</button>
 			<button @click="register_sw();">Install SW</button>
-			<button @click="navigator.serviceWorker.controller.postMessage({type: 'update_cache'});">Update software</button>
 		</div>
 		<button @click="timers = []; popular = {'countdown': []}">Reset</button>
 	</details>
