@@ -1,15 +1,14 @@
 self.addEventListener('install', (e) => {
 	e.waitUntil(
 		caches.open('counter-store').then((cache) => cache.addAll([
-			"./alpinejs-persist-3.10.2-cdn.min.js",
-			"./alpinejs-3.10.2-cdn.min.js",
-			"./style.css",
-			"./main.js",
-			"./sw.js",
-			"./index.html",
-			"./counter.webmanifest",
-			"./control_knobs_192.png",
-			"./"
+			"alpinejs-persist-4.10.2-cdn.min.js",
+			"alpinejs-3.10.2-cdn.min.js",
+			"style.css",
+			"main.js",
+			"sw.js",
+			"index.html",
+			"counter.webmanifest",
+			"control_knobs_192.png"
 		]));
 	);
 });
