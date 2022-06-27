@@ -46,13 +46,13 @@
 				<input type=time name=endtime value="18:00">
 				<button style="min-width: 2rem; aspect-ratio: 1" submit>+</button>
 			</div>
-			<div x-data="{ endtime: (popular.endtime ?? []) }" x-show="endtime.length > 0">
-				<div>popular</div>
-				<template x-for="poptime in endtime.slice(0, 3)">
-					<button @click.prevent="add_endtime(timers, `${poptime[0][0]}:${poptime[0][1]}`, popular)" x-text="`${poptime[0][0]}:${poptime[0][1].toString().padStart(2, '0')}`"></button>
-				</template>
-			</div>
 		</form>
+		<div x-data="{ endtime: (popular.endtime ?? []) }" x-show="endtime.length > 0">
+			<div>popular</div>
+			<template x-for="poptime in endtime.slice(0, 3)">
+				<button @click="add_endtime(timers, `${poptime[0][0]}:${poptime[0][1]}`, popular)" x-text="`${poptime[0][0]}:${poptime[0][1].toString().padStart(2, '0')}`"></button>
+			</template>
+		</div>
 		<form class=inner_form name=add_countdown @submit.prevent="add_countdown(timers, $event.target.hours.value, $event.target.minutes.value, popular)">
 			<div>duration</div>
 			<div class="inputs_row" style="display: flex; justify-content: center; column-gap: 0.3rem; align-items: center;">
@@ -64,7 +64,7 @@
 		<div x-data="{ countdown: (popular.countdown ?? []) }" x-show="countdown.length > 0">
 			<div>popular</div>
 			<template x-for="poptime in countdown.slice(0, 3)">
-				<button @click.prevent="add_countdown(timers, poptime[0][0], poptime[0][1], popular)" x-text="`${poptime[0][0]}:${poptime[0][1].toString().padStart(2, '0')}`"></button>
+				<button @click="add_countdown(timers, poptime[0][0], poptime[0][1], popular)" x-text="`${poptime[0][0]}:${poptime[0][1].toString().padStart(2, '0')}`"></button>
 			</template>
 		</div>
 	</div>
