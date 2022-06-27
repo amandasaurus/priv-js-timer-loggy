@@ -42,9 +42,9 @@
 	<div id=add_forms>
 		<form class=inner_form name=add_endtime @submit.prevent="add_endtime(timers, $event.target.endtime.value, popular)">
 			<div>end</div>
-			<div class=inputs_row style="display: flex; justify-content: center; gap: 0.5rem;">
+			<div class="inputs_row" style="display: flex; justify-content: center; column-gap: 0.3rem; align-items: center;">
 				<input type=time name=endtime value="18:00">
-				<button style="min-width: 2rem;" submit>+</button>
+				<button style="min-width: 2rem; aspect-ratio: 1" submit>+</button>
 			</div>
 			<div x-data="{ endtime: (popular.endtime ?? []) }" x-show="endtime.length > 0">
 				<div>popular</div>
@@ -58,7 +58,7 @@
 			<div class="inputs_row" style="display: flex; justify-content: center; column-gap: 0.3rem; align-items: center;">
 				<input type=number name=hours min=0 value=1 size=2>h
 				<input type=number name=minutes value=0 size=3 min=0 step=5 >m
-				<button style="min-width: 2rem;" submit>+</button>
+				<button style="min-width: 2rem; aspect-ratio: 1" submit>+</button>
 			</div>
 		</form>
 		<div x-data="{ countdown: (popular.countdown ?? []) }" x-show="countdown.length > 0">
