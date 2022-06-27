@@ -1,6 +1,6 @@
 function console_log(msg) {
 	console.log(msg);
-	fetch(`/console_log_msg_${Date.now()}_${encodeURIComponent(msg)}`).then(() => {}, () => {});
+	//fetch(`/console_log_msg_${Date.now()}_${encodeURIComponent(msg)}`).then(() => {}, () => {});
 }
 
 function remove_timer(timers, timer_id) {
