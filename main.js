@@ -17,7 +17,7 @@ function c14n_timers(timers) {
 	}
 }
 
-function add_endtime(timers, h_m) {
+function add_endtime(timers, h_m, popular) {
 	hours = parseInt(h_m.substr(0, 2), 10);
 	minutes = parseInt(h_m.substr(3, 5), 10);
 
@@ -40,9 +40,32 @@ function add_endtime(timers, h_m) {
 
 	timers.push({timer_id: timer_id, start: now, end: newend});
 	c14n_timers(timers);
+
+	if (popular.endtime == undefined ) {
+		popular.endtime = [];
+	}
+	var endtime = popular.endtime;
+	for (let i=0; i<endtime.length; i++) {
+		endtime[i][1] *= 0.9
+	}
+	i = endtime.findIndex((item) => item[0][0] == hours && item[0][1] == minutes);
+	if ( i == -1 ) {
+		endtime.push([[hours, minutes], 1]);
+	} else {
+		endtime[i][1]++;
+	}
+	endtime.sort((a, b) => a[1] < b[1])
+
+	// Trim extras
+	if (endtime.length > 10) {
+		endtime.splice(10, endtime.length-5);
+	}
 }
 
 function add_countdown(timers, hours, minutes, popular) {
+	if (hours == 0 && minutes == 0) {
+		return;
+	}
 	var timer_id = timers.reduce((max, timer) => timer.timer_id > max ? timer.timer_id : max, -1);
 	timer_id++;
 	var now = Date.now();
