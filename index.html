@@ -27,7 +27,17 @@
 			<div class="remaining center-children">
 				<span>start <span x-text="`${start.getHours().toString().padStart(2, '0')}:${start.getMinutes().toString().padStart(2, '0')}`"></span></span>
 				<span>end <span x-text="`${end.getHours().toString().padStart(2, '0')}:${end.getMinutes().toString().padStart(2, '0')}`"></span></span>
-				<span><button @click="remove_timer(timers, timer.timer_id)">🚮</button></span>
+				<span>
+					<button @click="remove_timer(timers, timer.timer_id)">
+						<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+						   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+						   <line x1="4" y1="7" x2="20" y2="7"></line>
+						   <line x1="10" y1="11" x2="10" y2="17"></line>
+						   <line x1="14" y1="11" x2="14" y2="17"></line>
+						   <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+						   <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+						</svg>
+					</button></span>
 			</div>
 			<div style="display: flex; justify-content: center;">
 				<details open><summary>edit</summary>
@@ -41,16 +51,16 @@
 
 	<div id=add_forms>
 		<form class=inner_form name=add_endtime @submit.prevent="add_endtime(timers, $event.target.endtime.value, popular)">
-			<div>end</div>
-			<div class="inputs_row" style="display: flex; justify-content: center; column-gap: 0.3rem; align-items: center;">
+			<span>end</span>
+			<span class="inputs_row" style="display: flex; justify-content: center; column-gap: 0.3rem; align-items: center;">
 				<input type=time name=endtime value="18:00">
 				<button style="min-width: 2rem; aspect-ratio: 1" submit>+</button>
-			</div>
+				</span>
 		</form>
 		<div x-data="{ endtime: (popular.endtime ?? []) }" x-show="endtime.length > 0">
-			<div>popular</div>
+			<span>popular</span>
 			<template x-for="poptime in endtime.slice(0, 3)">
-				<button @click="add_endtime(timers, `${poptime[0][0]}:${poptime[0][1]}`, popular); $event.target.blur();" x-text="`${poptime[0][0]}:${poptime[0][1].toString().padStart(2, '0')}`"></button>
+				<button style="margin-left: 1ch" @click="add_endtime(timers, `${poptime[0][0]}:${poptime[0][1]}`, popular); $event.target.blur();" x-text="`${poptime[0][0]}:${poptime[0][1].toString().padStart(2, '0')}`"></button>
 			</template>
 		</div>
 		<form class=inner_form name=add_countdown @submit.prevent="add_countdown(timers, $event.target.hours.value, $event.target.minutes.value, popular)">
@@ -62,23 +72,12 @@
 			</div>
 		</form>
 		<div x-data="{ countdown: (popular.countdown ?? []) }" x-show="countdown.length > 0">
-			<div>popular</div>
+			<span>popular</span>
 			<template x-for="poptime in countdown.slice(0, 3)">
-				<button @click="add_countdown(timers, poptime[0][0], poptime[0][1], popular)" x-text="`${poptime[0][0]}:${poptime[0][1].toString().padStart(2, '0')}`"></button>
+				<button style="margin-left: 1ch" @click="add_countdown(timers, poptime[0][0], poptime[0][1], popular)" x-text="`${poptime[0][0]}:${poptime[0][1].toString().padStart(2, '0')}`"></button>
 			</template>
 		</div>
 	</div>
-	<details closed><summary>Inner:</summary>
-		<code x-text="JSON.stringify(popular)"></code>
-		<pre style="white-space: pre-wrap; max-width: 50ch;" x-text="JSON.stringify(timers, null, ' ')"></pre>
-		<pre style="white-space: pre-wrap; max-width: 50ch;" x-text="JSON.stringify(popular, null, ' ')"></pre>
-		<div x-data="{ sw_status: 'unknown' }">
-			<abbr title="Service Worker">SW</abbr> status: <code x-text="sw_status"></code>
-			<button @click="sw_status = (navigator.serviceWorker == undefined) ? 'notinstallable' : ( (navigator.serviceWorker.controller != undefined) ? 'running' : 'notrunning' )">Check SW</button>
-			<button @click="register_sw();">Install SW</button>
-		</div>
-		<button @click="timers = []; popular = {'countdown': []}">Reset</button>
-	</details>
 	</main>
 
 </div>
