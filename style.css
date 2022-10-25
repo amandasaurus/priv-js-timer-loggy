@@ -29,15 +29,14 @@ button {
 	border: 1px solid black;
 	box-shadow: 3px 4px var(--text-col);
 }
-/*
-  .button:hover {background-color: #3e8e41}
-
-.button:active {
-  background-color: #3e8e41;
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
+button:hover {
+	background-color: #3e8e41
 }
-*/
+
+button:active {
+	transform: translate(2px, 3px);
+	box-shadow: 1px 1px;
+}
 
 @media screen and (max-width: 767px) {
   input, select, textarea {
