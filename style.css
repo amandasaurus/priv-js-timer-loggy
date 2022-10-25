@@ -69,7 +69,8 @@ main {
 	padding: 1rem 0.1rem;
 	margin: 0.5rem 0rem;
 	border-radius: 1.5rem;
-	border: 1px solid black;
+	border: 1px solid var(--text-col);
+	box-shadow: 0 0 2px 3px #C2C69A;
 }
 .individual_timer .firstrow {
 	text-align: center;
