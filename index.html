@@ -46,23 +46,23 @@
 		</template>
 
 
-		<div id=add_forms>
-			<div>
-				<span>end</span>
-				<form class=inner_form name=add_endtime @submit.prevent="add_endtime(timers, $event.target.endtime.value, popular)">
-					<span class="inputs_row" style="display: flex; justify-content: center; column-gap: 0.3rem; align-items: center;">
-						<input type=time name=endtime value="18:00">
-						<button style="min-width: 2rem; aspect-ratio: 1" submit>+</button>
-					</span>
-				</form>
-				<div x-data="{ endtime: (popular.endtime ?? []) }" x-show="endtime.length > 0">
-					<div style="display: flex; flex-direction: row; justify-content: center; gap: 1ch">
-						<template x-for="poptime in endtime.slice(0, 4)">
-							<button @click="add_endtime(timers, `${poptime[0][0]}:${poptime[0][1]}`, popular); $event.target.blur();" x-text="`${poptime[0][0]}:${poptime[0][1].toString().padStart(2, '0')}`"></button>
-						</template>
-					</div>
+		<div>
+			<span>end</span>
+			<form class=inner_form name=add_endtime @submit.prevent="add_endtime(timers, $event.target.endtime.value, popular)">
+				<span class="inputs_row" style="display: flex; justify-content: center; column-gap: 0.3rem; align-items: center;">
+					<input type=time name=endtime value="18:00">
+					<button style="min-width: 2rem; aspect-ratio: 1" submit>+</button>
+				</span>
+			</form>
+			<div x-data="{ endtime: (popular.endtime ?? []) }" x-show="endtime.length > 0">
+				<div style="display: flex; flex-direction: row; justify-content: center; gap: 1ch">
+					<template x-for="poptime in endtime.slice(0, 4)">
+						<button @click="add_endtime(timers, `${poptime[0][0]}:${poptime[0][1]}`, popular); $event.target.blur();" x-text="`${poptime[0][0]}:${poptime[0][1].toString().padStart(2, '0')}`"></button>
+					</template>
 				</div>
 			</div>
+		</div>
+		<div>
 			<div>duration</div>
 			<form class=inner_form name=add_countdown @submit.prevent="add_countdown(timers, $event.target.hours.value, $event.target.minutes.value, popular)">
 				<div class="inputs_row" style="display: flex; justify-content: center; column-gap: 0.3rem; align-items: center;">
@@ -78,6 +78,7 @@
 					</template>
 				</div>
 			</div>
+		</div>
 
 	</main>
 
