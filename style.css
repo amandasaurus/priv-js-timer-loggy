@@ -64,6 +64,15 @@ main {
 	padding-right: 1ch;
 }
 
+.flex-vert {
+	display: flex;
+	flex-direction: column;
+}
+.flex-horz {
+	display: flex;
+	flex-direction: row;
+}
+
 .center-children {
 	display: flex;
 	flex-direction: row;
