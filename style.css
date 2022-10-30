@@ -28,6 +28,7 @@ button {
 	border-radius: 7px;
 	border: 1px solid black;
 	box-shadow: 3px 4px var(--text-col);
+	margin: 5px 4px;
 }
 button:hover {
 	background-color: #3e8e41

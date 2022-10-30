@@ -47,9 +47,9 @@
 
 
 		<div class="flex-vert">
-			<span>end</span>
+			<div>end</div>
 			<div>
-				<span x-data="{ endtime: '18:00' }" class="inputs_row" style="display: flex; justify-content: center; column-gap: 0.3rem; align-items: center;">
+				<span x-data="{ endtime: '18:00' }" class="inputs_row flex-horz" style="justify-content: center; column-gap: 0.3rem; align-items: center;">
 					<input type=time name=endtime x-model=endtime>
 					<button style="min-width: 2rem; aspect-ratio: 1" @click="add_endtime(timers, endtime, popular)">+</button>
 				</span>
