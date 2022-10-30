@@ -48,12 +48,12 @@
 
 		<div>
 			<span>end</span>
-			<form class=inner_form name=add_endtime @submit.prevent="add_endtime(timers, $event.target.endtime.value, popular)">
+			<div>
 				<span class="inputs_row" style="display: flex; justify-content: center; column-gap: 0.3rem; align-items: center;">
 					<input type=time name=endtime value="18:00">
-					<button style="min-width: 2rem; aspect-ratio: 1" submit>+</button>
+					<button style="min-width: 2rem; aspect-ratio: 1" @click="add_endtime(timers, $event.target.endtime.value, popular)">+</button>
 				</span>
-			</form>
+			</div>
 			<div x-data="{ endtime: (popular.endtime ?? []) }" x-show="endtime.length > 0">
 				<div style="display: flex; flex-direction: row; justify-content: center; gap: 1ch">
 					<template x-for="poptime in endtime.slice(0, 4)">
