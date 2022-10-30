@@ -53,7 +53,7 @@ body {
 }
 
 main {
-	width: clamp(20ch, 40ch, 100vw);
+	width: min(40ch, 100vw);
 	margin-top: 1ch;
 
 	display: flex;
